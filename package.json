@@ -8,6 +8,7 @@
   "dependencies": {
     "@cycle/dom": "18.3.0",
     "@cycle/run": "3.3.0",
+    "typestyle": "^2.0.1",
     "xstream": "11.0.0"
   },
   "scripts": {
