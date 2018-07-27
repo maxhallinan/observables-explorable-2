@@ -21,9 +21,6 @@ export const controls = style({
 });
 
 export const controlLabel = style({
-  alignItems: 'center',
-  border: 'none',
-  display: 'flex',
   margin: 0,
   padding: 0,
 });
