@@ -25,22 +25,31 @@ const toTimeIndexed = (x) => [ Date.now(), x ];
 
 const toTimeline = (timeline, timeIndexed)  => [ ...timeline, timeIndexed ];
 
-const toTimelineTable = ([ clientY ]) => ({
-  clientY,
-});
+const toTimelineTable = ([ moveY, clickY, ]) => ({ moveY, clickY, });
 
 export function App (sources) {
   const mouseArea = sources.DOM.select('.js-mousearea');
 
-  const clientY$ = mouseArea.events('mousemove')
+  const moveY$ = mouseArea.events('mousemove')
     .map(toClientY);
 
-  const clientYTimeline$ = clientY$
+  const moveYTimeline$ = moveY$
     .map(toTimeIndexed)
     .fold(toTimeline, [])
     .startWith([]);
 
-  const timeline$ = xs.combine(clientYTimeline$).map(toTimelineTable);
+  const clickY = mouseArea.events('click')
+    .map(toClientY);
+
+  const clickYTimeline$ = clickY
+    .map(toTimeIndexed)
+    .fold(toTimeline, [])
+    .startWith([]);
+
+  const timeline$ = xs.combine(
+    moveYTimeline$,
+    clickYTimeline$,
+  ).map(toTimelineTable);
 
   const stateSource$ = xs.combine(timeline$);
 
