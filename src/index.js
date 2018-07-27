@@ -1,11 +1,15 @@
-import {run} from '@cycle/run'
-import {makeDOMDriver} from '@cycle/dom'
-import {App} from './app'
+import { run, } from '@cycle/run'
+import { makeDOMDriver, } from '@cycle/dom'
+import { App, } from './app'
 
 const main = App
 
-const drivers = {
-  DOM: makeDOMDriver('#root')
-}
+window.ObservablesExplorable2 = {
+  run: (appContainer) => {
+    const drivers = {
+      DOM: makeDOMDriver(appContainer),
+    }
 
-run(main, drivers)
+    run(main, drivers);
+  }
+};
